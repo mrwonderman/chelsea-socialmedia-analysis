@@ -1,0 +1,12 @@
+{% load staticfiles %}
+
+      <div class="starter-template">
+        <a href="/"><h1 style="font-size:58px">CHELSEA FC TWEET ANALYSIS</h1></a>
+        <p class="lead">The database contains <i>{{amount_of_tweets}}</i> tweets of Chelsea FC players.</p>
+
+        <form action="{% url 'tweets:search' %}" method="get">
+        {% csrf_token %}
+            <input name="search_term" id="search_term" class="form-control input-lg" type="text" placeholder="enter any search term here, like '#CFC' or 'Petr Cech + Pizza'" value="{{ search_term }}">
+        </form>
+      </div>
+

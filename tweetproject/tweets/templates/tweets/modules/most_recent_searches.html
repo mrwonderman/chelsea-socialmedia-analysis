@@ -1,0 +1,9 @@
+<div>
+  <h3>Most recent searches</h3>
+    {% for search in searches %}
+      <a href="#" class="list-group-item">
+        <p class="list-group-item-text">{{ search.searchtext }}</p>
+        <p class="list-group-item-text">{{ search.searchdate }}</p>
+      </a>
+    {% endfor %}
+</div>

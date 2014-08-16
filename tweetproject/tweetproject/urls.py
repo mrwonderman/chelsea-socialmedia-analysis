@@ -1,0 +1,11 @@
+from django.conf.urls import patterns, include, url
+
+from django.contrib import admin
+admin.autodiscover()
+
+urlpatterns = patterns('',
+    # Examples:
+    url(r'^$', include('tweets.urls')),
+    url(r'^tweets/', include('tweets.urls', namespace="tweets")),
+    url(r'^admin/', include(admin.site.urls)),
+)

@@ -1,0 +1,62 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+{% include "tweets/modules/head_snippet.html" %}
+  <body>
+    <div class="container">
+      {% include "tweets/modules/search_box_snippet.html" with amount_of_tweets=amount_of_tweets search_term=search_term %}
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-4">
+            <h3>Conclusion</h3>
+            <p>there are <b>{{ search_size }}</b> tweets for your search</p>
+            <h3>Filters</h3> 
+            <h4>by player</h4>
+            {% for user in usernames %}
+              <form action="{% url 'tweets:search' %}" method="get">
+                <div class="checkbox">
+                  <label>
+                    <input onClick="this.form.submit();" name="personfilter" id="filter_p_{{ forloop.counter }}" value="{{ user }}" type="radio"> {{ user }}
+                  </label>
+                  <input name="search_term" type="hidden" value="{{ search_term }}"></input>
+                </div>
+              </form>
+            {% endfor %}
+          </div>
+          <div class="col-md-8">
+          {% if results %}
+                {% for result in results %}
+                 <a href="/tweets/user/{{ result.user }}" class="list-group-item">
+                  {% if result.hashtags %}
+                   <span class="badge pull-right">{{ result.hashtags|length }} hashtags</span>
+                   {% endif %}
+                   <h4 class="list-group-item-heading">@{{ result.user }}</h4>
+                   <p class="list-group-item-text">{{ result.text }}</p>
+                   <p class="list-group-item-text">{% for hashtag in result.hashtags %} {{ hashtag }} {% endfor %}</p>
+                 </a>
+                {% endfor %}
+            <div class="pagination">
+              <span class="step-links">
+                  {% if results.has_previous %}
+                      <a href="?page={{ results.previous_page_number }}&search_term={{ search_term }}">previous</a>
+                  {% endif %}
+
+                  <span class="current">
+                      Page {{ results.number }} of {{ results.paginator.num_pages }}.
+                  </span>
+
+                  {% if results.has_next %}
+                      <a href="?page={{ results.next_page_number }}&search_term={{ search_term }}">next</a>
+                  {% endif %}
+              </span>
+            </div>
+          {% else %}
+                <p>No tweets are available :(.</p>
+           {% endif %}
+         </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+{% include "tweets/modules/head_snippet.html" %}
+<body>
+  <div class="container">
+    {% include "tweets/modules/search_box_snippet.html" %}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4">
+          {% include "tweets/modules/user_summary.html" with user=result %}
+          {% include "tweets/modules/most_active_d_of_w.html" with chart_array=chart_array %}
+        </div>
+        <div class="col-md-8">
+          {% include "tweets/modules/newest_tweets.html" with latest_tweets_list=latest_tweets_list %}
+          <div class="pagination">
+            <ul class="pager">
+              {% if results.has_previous %}
+              <li class="previous"><a href="?page={{ results.previous_page_number }}&search_term={{ search_term }}">previous</a></li>
+              {% endif %}
+              {% if results.has_next %}
+              <li class="next"><a href="?page={{ results.next_page_number }}&search_term={{ search_term }}">next</a></li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

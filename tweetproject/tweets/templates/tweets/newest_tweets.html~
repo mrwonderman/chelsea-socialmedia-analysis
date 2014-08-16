@@ -1,0 +1,19 @@
+<!---
+
+This needs the following variables:
+
+  * latest_tweets_list (the data for the newest tweets)
+
+-->
+
+<div>
+  <h3>Newest tweets</h3>
+  <div class="list-group">
+    {% for tweets in latest_tweets_list %}
+    <a href="#" class="list-group-item">
+     <h4 class="list-group-item-heading">{{ tweets.user }}</h4>
+     <p class="list-group-item-text">{{ tweets.text }}</p>
+   </a>
+   {% endfor %}
+ </div>
+</div>

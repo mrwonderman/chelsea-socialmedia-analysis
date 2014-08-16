@@ -1,0 +1,14 @@
+<div>
+	<h3>Newest tweets</h3>
+	<div class="list-group">
+		{% for tweets in latest_tweets_list %}
+		<a href="/tweets/user/{{ tweets.user }}" class="list-group-item">
+			{% if tweets.is_today %}
+			<span class="badge pull-right">today!</span>
+			{% endif %}
+			<h4 class="list-group-item-heading">{{ tweets.user }}</h4>
+			<p class="list-group-item-text">{{ tweets.text }}</p>
+		</a>
+		{% endfor %}
+	</div>
+</div>
